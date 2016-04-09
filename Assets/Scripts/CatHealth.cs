@@ -24,14 +24,20 @@ public class CatHealth : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Car"))
+        {
+            TakeDamage();
+        }
+    }
+
+    void TakeDamage()
+    {
         animator.SetTrigger("DamageTaken");
         currentLives--;
         UpdateUI();
-        Debug.Log("Current Lives: " + currentLives);
         if (currentLives <= 0)
         {
             Destroy(gameObject);
-            Debug.Log("cat died");
         }
     }
 
