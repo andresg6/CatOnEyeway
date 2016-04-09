@@ -16,7 +16,6 @@ public class FollowGaze : MonoBehaviour {
 
         if (lastGazePoint.IsWithinScreenBounds)
         {
-            Debug.Log("test");
             Vector2 screenSpace = lastGazePoint.Screen;
 
             Vector3 gazeWorldPoint = Camera.main.ScreenToWorldPoint(new Vector3(screenSpace.x, screenSpace.y, Camera.main.nearClipPlane));
