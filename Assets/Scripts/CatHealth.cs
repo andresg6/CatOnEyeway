@@ -9,7 +9,8 @@ public class CatHealth : MonoBehaviour {
 
     public GameObject deathSprite;
     private Animator animator;
-    public Text livesCountText;
+
+    public UIScript uiScript;
 
 	void Start () {
         animator = GetComponent<Animator>();
@@ -36,7 +37,7 @@ public class CatHealth : MonoBehaviour {
 
     void UpdateUI()
     {
-        livesCountText.text = currentLives.ToString();
+        uiScript.updateLives(currentLives);
     }
 
     void OnDestroy()
