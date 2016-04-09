@@ -20,6 +20,7 @@ public class FollowGaze : MonoBehaviour {
             Vector2 screenSpace = lastGazePoint.Screen;
 
             Vector3 gazeWorldPoint = Camera.main.ScreenToWorldPoint(new Vector3(screenSpace.x, screenSpace.y, Camera.main.nearClipPlane));
+            gazeWorldPoint = new Vector3(gazeWorldPoint.x, gazeWorldPoint.y, 0.0f);
             Vector3 lerped = Vector3.Lerp(transform.position, gazeWorldPoint, lerpAmount);
             transform.position = lerped;
         }
