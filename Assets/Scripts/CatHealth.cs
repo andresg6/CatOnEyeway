@@ -7,8 +7,10 @@ public class CatHealth : MonoBehaviour {
     private int currentLives;
 
     public GameObject deathSprite;
+    public Animator animator;
 
 	void Start () {
+        animator = GetComponent<Animator>();
         currentLives = maxLives;
 	}
 	
@@ -18,6 +20,7 @@ public class CatHealth : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        animator.SetTrigger("DamageTaken");
         currentLives--;
         Debug.Log("Current Lives: " + currentLives);
         if (currentLives <= 0)
