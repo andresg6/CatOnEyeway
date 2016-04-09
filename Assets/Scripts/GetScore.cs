@@ -4,19 +4,17 @@ using System.Collections;
 
 public class GetScore : MonoBehaviour {
 
-	public int score; // score from the game that just ended
-
 	public Text scoreText;
 	public Text highScoreText;
 
 	void Awake() {
-		if (score > PlayerPrefs.GetInt ("HighScore")) {
-			PlayerPrefs.SetInt ("HighScore", score);
+		if (PlayerPrefs.GetInt ("Score") > PlayerPrefs.GetInt ("HighScore")) {
+			PlayerPrefs.SetInt ("HighScore", PlayerPrefs.GetInt ("Score"));
 		}
 	}
 
 	void Start () {
-		scoreText.text = "Distance Traveled: " + score;
+		scoreText.text = "Distance Traveled: " + PlayerPrefs.GetInt ("Score");
 		highScoreText.text = "High Score: " + PlayerPrefs.GetInt ("HighScore");
 	}
 }
