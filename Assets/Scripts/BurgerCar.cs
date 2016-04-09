@@ -7,6 +7,7 @@ public class BurgerCar : MonoBehaviour {
 
     void FixedUpdate()
     {
+        
         transform.Translate(direction.normalized * speed * Time.deltaTime);
     }
 

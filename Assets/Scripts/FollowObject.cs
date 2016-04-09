@@ -15,5 +15,6 @@ public class FollowObject : MonoBehaviour {
 	void Update () {
         float step = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, objectToFollow.transform.position, step);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
     }
 }

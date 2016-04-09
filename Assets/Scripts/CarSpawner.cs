@@ -23,7 +23,7 @@ public class CarSpawner : MonoBehaviour {
             Debug.Log("SpawnCar");
             GameObject newCar = (GameObject)Instantiate(getRandomCar(), transform.position, transform.rotation);
             CarMovement carMove = newCar.GetComponent<CarMovement>();
-            carMove.speed = 10.0f;
+            carMove.speed = -10.0f;
             yield return new WaitForSeconds(spawnDelay);
         }
     }
