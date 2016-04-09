@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class CatHealth : MonoBehaviour {
 
@@ -7,12 +8,14 @@ public class CatHealth : MonoBehaviour {
     private int currentLives;
 
     public GameObject deathSprite;
-    public Animator animator;
+    private Animator animator;
+    public Text livesCountText;
 
 	void Start () {
         animator = GetComponent<Animator>();
         currentLives = maxLives;
-	}
+        UpdateUI();
+    }
 	
 	void Update () {
 	
@@ -22,12 +25,18 @@ public class CatHealth : MonoBehaviour {
     {
         animator.SetTrigger("DamageTaken");
         currentLives--;
+        UpdateUI();
         Debug.Log("Current Lives: " + currentLives);
         if (currentLives <= 0)
         {
             Destroy(gameObject);
             Debug.Log("cat died");
         }
+    }
+
+    void UpdateUI()
+    {
+        livesCountText.text = currentLives.ToString();
     }
 
     void OnDestroy()
