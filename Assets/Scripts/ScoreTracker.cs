@@ -21,6 +21,12 @@ public class ScoreTracker : MonoBehaviour {
         }
     }
 
+    public float getCurrentScore()
+    {
+        return timePassed / secondsToKilometer;
+    }
+       
+
     public void passScore()
     {
         PlayerPrefs.SetInt("Score", Mathf.FloorToInt(timePassed * scoreMultiplier));
