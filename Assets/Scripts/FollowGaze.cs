@@ -14,14 +14,17 @@ public class FollowGaze : MonoBehaviour {
 	void Update () {
         EyeXGazePoint lastGazePoint = gazePointDataComponent.LastGazePoint;
 
-        if (lastGazePoint.IsWithinScreenBounds)
+        if (!Input.GetKey(KeyCode.Space))
         {
-            Vector2 screenSpace = lastGazePoint.Screen;
+            if (lastGazePoint.IsWithinScreenBounds)
+            {
+                Vector2 screenSpace = lastGazePoint.Screen;
 
-            Vector3 gazeWorldPoint = Camera.main.ScreenToWorldPoint(new Vector3(screenSpace.x, screenSpace.y, Camera.main.nearClipPlane));
-            gazeWorldPoint = new Vector3(gazeWorldPoint.x, gazeWorldPoint.y, 0.0f);
-            Vector3 lerped = Vector3.Lerp(transform.position, gazeWorldPoint, lerpAmount);
-            transform.position = lerped;
+                Vector3 gazeWorldPoint = Camera.main.ScreenToWorldPoint(new Vector3(screenSpace.x, screenSpace.y, Camera.main.nearClipPlane));
+                gazeWorldPoint = new Vector3(gazeWorldPoint.x, gazeWorldPoint.y, 0.0f);
+                Vector3 lerped = Vector3.Lerp(transform.position, gazeWorldPoint, lerpAmount);
+                transform.position = lerped;
+            }
         }
 	}
 }
