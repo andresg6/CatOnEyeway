@@ -17,10 +17,9 @@ public class CatHealth : MonoBehaviour {
 
 	public AudioSource meow;
 
-	private BoxCollider2D hitBox;	//test
+	private Collider2D collided;
 
 	void Start () {
-		hitBox = this.GetComponent<BoxCollider2D> ();	//test
 
         animator = GetComponent<Animator>();
         mainCam = FindObjectOfType<MainCameraController>();
@@ -33,8 +32,9 @@ public class CatHealth : MonoBehaviour {
         remainingInvincibiltiyTime -= Time.deltaTime;
 
 		//test
-		if (!hitBox.isActiveAndEnabled && remainingInvincibiltiyTime <= 0) {
-			hitBox.enabled = !hitBox.enabled;
+		if (remainingInvincibiltiyTime <= 0 && collided) {
+			//Physics2D.IgnoreLayerCollision (1, 0, false);
+			Physics2D.IgnoreCollision(collided, this.GetComponent<Collider2D>(), false);
 		}
 
 		//endtest
@@ -46,7 +46,10 @@ public class CatHealth : MonoBehaviour {
         {
             if (remainingInvincibiltiyTime <= 0.0f)
             {
+				collided = collision.collider;
+				Physics2D.IgnoreCollision(collided, this.GetComponent<Collider2D>(),true);
                 TakeDamage();
+
             }
         }
     }
@@ -55,19 +58,26 @@ public class CatHealth : MonoBehaviour {
     {
         Debug.Log("taking damage");
 		meow.Play ();
-        animator.SetTrigger("DamageTaken");
+        
         currentLives--;
+		if (currentLives > 0) {	//test1
+			animator.SetTrigger ("DamageTaken");
+		}
         Debug.Log(currentLives);
         UpdateUI();
         if (currentLives <= 0)
         {
+			animator.SetTrigger ("Dead");	//test1
             uiScript.EndGame();
-            Destroy(gameObject);
+            Destroy(gameObject,2);	//test1
         }
         if (mainCam) { mainCam.addScreenShake(10); }
         remainingInvincibiltiyTime = invincibilityTime;
 
-		hitBox.enabled = !hitBox.enabled;	//test
+		//test
+
+		Debug.Log (Physics2D.GetIgnoreCollision (collided, this.GetComponent < Collider2D>()));
+
     }
 
     void UpdateUI()
