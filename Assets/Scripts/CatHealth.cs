@@ -9,6 +9,7 @@ public class CatHealth : MonoBehaviour {
 
     public GameObject deathSprite;
     private Animator animator;
+    private MainCameraController mainCam;
 
     public UIScript uiScript;
 
@@ -17,6 +18,7 @@ public class CatHealth : MonoBehaviour {
 
 	void Start () {
         animator = GetComponent<Animator>();
+        mainCam = FindObjectOfType<MainCameraController>();
         currentLives = maxLives;
         remainingInvincibiltiyTime = 0.0f;
         UpdateUI();
@@ -40,6 +42,7 @@ public class CatHealth : MonoBehaviour {
     void TakeDamage()
     {
         animator.SetTrigger("DamageTaken");
+        if (mainCam) { mainCam.addScreenShake(10); }
         currentLives--;
         UpdateUI();
         if (currentLives <= 0)

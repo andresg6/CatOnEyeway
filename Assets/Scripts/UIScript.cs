@@ -31,7 +31,7 @@ public class UIScript : MonoBehaviour {
         }
     }
 
-    private void PauseGame()
+    public void PauseGame()
     {
         lastTimescale = Time.timeScale;
         Time.timeScale = 0;
@@ -45,7 +45,7 @@ public class UIScript : MonoBehaviour {
         MainMenu.gameObject.SetActive(true);
     }
 
-    private void UnpauseGame()
+    public void UnpauseGame()
     {
         Time.timeScale = lastTimescale;
         isPaused = false;
