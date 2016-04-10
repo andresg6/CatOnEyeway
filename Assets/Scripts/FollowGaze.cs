@@ -14,25 +14,26 @@ public class FollowGaze : MonoBehaviour {
 	}
 	
 	void Update () {
-        if (eyeXHost == null)
-        {
-            FollowMouse();
-            return;
-        }
-        EyeXDeviceStatus eyeTrackerDeviceStatus = eyeXHost.EyeTrackingDeviceStatus;
+        #if UNITY_STANDALONE_WIN
+                EyeXDeviceStatus eyeTrackerDeviceStatus = eyeXHost.EyeTrackingDeviceStatus;
 
-        if (!Input.GetKey(KeyCode.Space))
-        {
-            if (eyeTrackerDeviceStatus == EyeXDeviceStatus.Tracking)
-            {
-                FollowGazePoint();
-            }
-            else
-            {
+                if (!Input.GetKey(KeyCode.Space))
+                {
+                    if (eyeTrackerDeviceStatus == EyeXDeviceStatus.Tracking)
+                    {
+                        FollowGazePoint();
+                    }
+                    else
+                    {
+                        FollowMouse();
+                    }
+                }
+        #else
                 FollowMouse();
-            }
-        }
-	}
+        #endif
+        
+
+    }
 
     void FollowGazePoint()
     {
