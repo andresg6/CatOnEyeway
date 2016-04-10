@@ -7,7 +7,6 @@ public class CatHealth : MonoBehaviour {
     public int maxLives;
     private int currentLives;
 
-    public GameObject deathSprite;
     private Animator animator;
     private MainCameraController mainCam;
 
@@ -43,17 +42,18 @@ public class CatHealth : MonoBehaviour {
 
     void TakeDamage()
     {
+        Debug.Log("taking damage");
 		meow.Play ();
         animator.SetTrigger("DamageTaken");
-        if (mainCam) { mainCam.addScreenShake(10); }
         currentLives--;
+        Debug.Log(currentLives);
         UpdateUI();
         if (currentLives <= 0)
         {
             uiScript.EndGame();
             Destroy(gameObject);
         }
-
+        if (mainCam) { mainCam.addScreenShake(10); }
         remainingInvincibiltiyTime = invincibilityTime;
     }
 
@@ -62,8 +62,4 @@ public class CatHealth : MonoBehaviour {
         uiScript.updateLives(currentLives);
     }
 
-    void OnDestroy()
-    {
-        Instantiate(deathSprite, transform.position, Quaternion.identity);
-    }
 }
