@@ -20,4 +20,9 @@ public class SceneSwap : MonoBehaviour {
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(OverScene);
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
