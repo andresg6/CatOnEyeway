@@ -4,14 +4,13 @@ using System.Collections;
 public class CarSpawner : MonoBehaviour {
     public GameObject[] carsToSpawn;
 
-    public float spawnDelay;
+    public float spawnDelayMin;
+    public float spawnDelayMax;
 
-	// Use this for initialization
 	void Start () {
         StartCoroutine("SpawnCar");
 	}
 	
-	// Update is called once per frame
 	void Update () {
 
 	}
@@ -20,11 +19,11 @@ public class CarSpawner : MonoBehaviour {
     {
         while (true)
         {
+            yield return new WaitForSeconds(getRandomSpawnDelay());
             Debug.Log("SpawnCar");
             GameObject newCar = (GameObject)Instantiate(getRandomCar(), transform.position, transform.rotation);
             CarMovement carMove = newCar.GetComponent<CarMovement>();
             carMove.speed = -10.0f;
-            yield return new WaitForSeconds(spawnDelay);
         }
     }
 
@@ -32,5 +31,10 @@ public class CarSpawner : MonoBehaviour {
     {
         int index = Random.Range(0, carsToSpawn.Length);
         return carsToSpawn[index];
+    }
+
+    float getRandomSpawnDelay()
+    {
+        return Random.Range(spawnDelayMin, spawnDelayMax);
     }
 }

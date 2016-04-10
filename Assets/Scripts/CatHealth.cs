@@ -12,21 +12,28 @@ public class CatHealth : MonoBehaviour {
 
     public UIScript uiScript;
 
+    public float invincibilityTime;
+    private float remainingInvincibiltiyTime;
+
 	void Start () {
         animator = GetComponent<Animator>();
         currentLives = maxLives;
+        remainingInvincibiltiyTime = 0.0f;
         UpdateUI();
     }
 	
 	void Update () {
-	
+        remainingInvincibiltiyTime -= Time.deltaTime;
 	}
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Car"))
         {
-            TakeDamage();
+            if (remainingInvincibiltiyTime <= 0.0f)
+            {
+                TakeDamage();
+            }
         }
     }
 
@@ -39,6 +46,8 @@ public class CatHealth : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+
+        remainingInvincibiltiyTime = invincibilityTime;
     }
 
     void UpdateUI()
