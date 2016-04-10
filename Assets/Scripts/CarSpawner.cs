@@ -20,17 +20,37 @@ public class CarSpawner : MonoBehaviour {
         while (true)
         {
             yield return new WaitForSeconds(getRandomSpawnDelay());
-            Debug.Log("SpawnCar");
             GameObject newCar = (GameObject)Instantiate(getRandomCar(), transform.position, transform.rotation);
             CarMovement carMove = newCar.GetComponent<CarMovement>();
-            carMove.speed = -10.0f;
         }
+    }
+
+    GameObject getTotallyRandomCar()
+    {
+        int index = Random.Range(0, carsToSpawn.Length);
+        return carsToSpawn[index];
     }
 
     GameObject getRandomCar()
     {
-        int index = Random.Range(0, carsToSpawn.Length);
-        return carsToSpawn[index];
+        float rand = Random.value;
+        Debug.Log(rand);
+        if (rand >= 0.97f)
+        {
+            return carsToSpawn[1]; //old man
+        }
+        else if (rand >= 0.90f)
+        {
+            return carsToSpawn[0]; //cop car 
+        }
+        else if (rand >= 0.50f)
+        {
+            return carsToSpawn[2]; //purple car
+        }
+        else
+        {
+            return carsToSpawn[3]; //red car
+        }
     }
 
     float getRandomSpawnDelay()
