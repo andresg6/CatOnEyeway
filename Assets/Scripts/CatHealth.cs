@@ -16,6 +16,8 @@ public class CatHealth : MonoBehaviour {
     public float invincibilityTime;
     private float remainingInvincibiltiyTime;
 
+	public AudioSource meow;
+
 	void Start () {
         animator = GetComponent<Animator>();
         mainCam = FindObjectOfType<MainCameraController>();
@@ -41,6 +43,7 @@ public class CatHealth : MonoBehaviour {
 
     void TakeDamage()
     {
+		meow.Play ();
         animator.SetTrigger("DamageTaken");
         if (mainCam) { mainCam.addScreenShake(10); }
         currentLives--;
