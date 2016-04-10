@@ -6,6 +6,7 @@ public class ScoreTracker : MonoBehaviour {
     public float secondsToKilometer = 4;
     public float scoreMultiplier = 4;
     private float timePassed;
+    private bool isWorking = true;
 
     void Start()
     {
@@ -13,12 +14,16 @@ public class ScoreTracker : MonoBehaviour {
     }
 	void Update()
     {
-        timePassed += Time.deltaTime;
-        mainUi.updateDistanceTraveled(timePassed / secondsToKilometer);
+        if (isWorking)
+        {
+            timePassed += Time.deltaTime;
+            mainUi.updateDistanceTraveled(timePassed / secondsToKilometer);
+        }
     }
 
     public void passScore()
     {
         PlayerPrefs.SetInt("Score", Mathf.FloorToInt(timePassed * scoreMultiplier));
+        isWorking = false;
     }
 }

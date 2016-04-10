@@ -47,6 +47,7 @@ public class CatHealth : MonoBehaviour {
         UpdateUI();
         if (currentLives <= 0)
         {
+            uiScript.EndGame();
             Destroy(gameObject);
         }
 

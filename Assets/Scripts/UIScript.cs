@@ -4,6 +4,8 @@ using System.Collections;
 
 public class UIScript : MonoBehaviour {
 
+    public float endGameDelay = 2.0f;
+
     public Text LivesText;
     public Text DistanceText;
 
@@ -14,11 +16,22 @@ public class UIScript : MonoBehaviour {
     public Button MainMenu;
 
     private bool isPaused = false;
+    private bool endTimerOn = false;
+    private float deathTimer = 0.0f;
     private float lastTimescale;
+
+    private ScoreTracker sTracker;
+    private SceneSwap swapper;
+
+    void Start()
+    {
+        sTracker = FindObjectOfType<ScoreTracker>();
+        swapper = FindObjectOfType<SceneSwap>();
+    }
 
     void Update()
     {
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel") && !endTimerOn)
         {
             if(!isPaused)
             {
@@ -28,6 +41,11 @@ public class UIScript : MonoBehaviour {
             {
                 UnpauseGame();
             }
+        }
+
+        if(endTimerOn)
+        {
+            CountToEnd();
         }
     }
 
@@ -56,6 +74,26 @@ public class UIScript : MonoBehaviour {
         pausePanel.gameObject.SetActive(false);
         Resume.gameObject.SetActive(false);
         MainMenu.gameObject.SetActive(false);
+    }
+
+    public void EndGame()
+    {
+        sTracker.passScore();
+        EnableSwapTimer();
+    }
+
+    private void CountToEnd()
+    {
+        deathTimer += Time.deltaTime;
+        if(deathTimer >= endGameDelay)
+        {
+            swapper.LoadGameOver();
+        }
+    }
+
+    private void EnableSwapTimer()
+    {
+        endTimerOn = true;
     }
     
     public void updateLives(int newLives)
