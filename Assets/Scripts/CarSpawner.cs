@@ -21,7 +21,6 @@ public class CarSpawner : MonoBehaviour {
         {
             yield return new WaitForSeconds(getRandomSpawnDelay());
             GameObject newCar = (GameObject)Instantiate(getRandomCar(), transform.position, transform.rotation);
-            CarMovement carMove = newCar.GetComponent<CarMovement>();
         }
     }
 
@@ -33,6 +32,12 @@ public class CarSpawner : MonoBehaviour {
 
     GameObject getRandomCar()
     {
+        //dumb hack for burger car spawn
+        if (carsToSpawn.Length == 1)
+        {
+            return carsToSpawn[0];
+        }
+
         float rand = Random.value;
         Debug.Log(rand);
         if (rand >= 0.97f)
