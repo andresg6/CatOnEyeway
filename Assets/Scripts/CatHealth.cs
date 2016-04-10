@@ -17,7 +17,11 @@ public class CatHealth : MonoBehaviour {
 
 	public AudioSource meow;
 
+	private BoxCollider2D hitBox;	//test
+
 	void Start () {
+		hitBox = this.GetComponent<BoxCollider2D> ();	//test
+
         animator = GetComponent<Animator>();
         mainCam = FindObjectOfType<MainCameraController>();
         currentLives = maxLives;
@@ -27,6 +31,13 @@ public class CatHealth : MonoBehaviour {
 	
 	void Update () {
         remainingInvincibiltiyTime -= Time.deltaTime;
+
+		//test
+		if (!hitBox.isActiveAndEnabled && remainingInvincibiltiyTime <= 0) {
+			hitBox.enabled = !hitBox.enabled;
+		}
+
+		//endtest
 	}
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -55,6 +66,8 @@ public class CatHealth : MonoBehaviour {
         }
         if (mainCam) { mainCam.addScreenShake(10); }
         remainingInvincibiltiyTime = invincibilityTime;
+
+		hitBox.enabled = !hitBox.enabled;	//test
     }
 
     void UpdateUI()
