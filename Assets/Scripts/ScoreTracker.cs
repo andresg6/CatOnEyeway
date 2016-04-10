@@ -29,7 +29,7 @@ public class ScoreTracker : MonoBehaviour {
 
     public void passScore()
     {
-        PlayerPrefs.SetInt("Score", Mathf.FloorToInt(timePassed * scoreMultiplier));
+        PlayerPrefs.SetFloat("Score", timePassed / secondsToKilometer);
         isWorking = false;
     }
 }

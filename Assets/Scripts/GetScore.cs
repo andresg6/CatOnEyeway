@@ -8,13 +8,13 @@ public class GetScore : MonoBehaviour {
 	public Text highScoreText;
 
 	void Awake() {
-		if (PlayerPrefs.GetInt ("Score") > PlayerPrefs.GetInt ("HighScore")) {
-			PlayerPrefs.SetInt ("HighScore", PlayerPrefs.GetInt ("Score"));
+		if (PlayerPrefs.GetFloat ("Score") > PlayerPrefs.GetFloat ("HighScore")) {
+			PlayerPrefs.SetFloat ("HighScore", PlayerPrefs.GetFloat ("Score"));
 		}
 	}
 
 	void Start () {
-		scoreText.text = "Distance Traveled: " + PlayerPrefs.GetInt ("Score");
-		highScoreText.text = "High Score: " + PlayerPrefs.GetInt ("HighScore");
+		scoreText.text = "Distance Traveled: " + (PlayerPrefs.GetFloat ("Score")).ToString("N2") + " Km";
+		highScoreText.text = "High Score: " + PlayerPrefs.GetFloat ("HighScore").ToString("N2") + " Km";
 	}
 }
