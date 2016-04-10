@@ -24,6 +24,8 @@ public class CatHealth : MonoBehaviour {
         animator = GetComponent<Animator>();
         mainCam = FindObjectOfType<MainCameraController>();
         currentLives = maxLives;
+		this.GetComponent<Collider2D> ().enabled = true;
+		this.GetComponent<FollowObject> ().enabled = true;
         remainingInvincibiltiyTime = 0.0f;
         UpdateUI();
     }
@@ -67,6 +69,8 @@ public class CatHealth : MonoBehaviour {
         UpdateUI();
         if (currentLives <= 0)
         {
+			this.GetComponent<Collider2D> ().enabled = false;
+			this.GetComponent<FollowObject> ().enabled = false;
 			animator.SetTrigger ("Dead");	//test1
             uiScript.EndGame();
             Destroy(gameObject,2);	//test1
