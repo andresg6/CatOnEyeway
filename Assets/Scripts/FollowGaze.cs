@@ -14,6 +14,11 @@ public class FollowGaze : MonoBehaviour {
 	}
 	
 	void Update () {
+        if (eyeXHost == null)
+        {
+            FollowMouse();
+            return;
+        }
         EyeXDeviceStatus eyeTrackerDeviceStatus = eyeXHost.EyeTrackingDeviceStatus;
 
         if (!Input.GetKey(KeyCode.Space))
